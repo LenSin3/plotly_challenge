@@ -4,10 +4,13 @@
 // Load samples.json
 
 d3.json("/data/samples.json").then((data) => {
+
+    // Extract metadata
+    var metaData = data.metadata;
+    console.log(metaData);
      
-    // Extract samples data
-    
-    samples_data = data.samples; 
+    // Extract samples data    
+    var samples_data = data.samples; 
 
     var samplesVals= [];
     var samplesOTUID = [];
@@ -43,10 +46,7 @@ d3.json("/data/samples.json").then((data) => {
     function init() {
 
         // horizontal bar graph
-        
-
         var trace = {
-
             type: "bar",
             x: xVals.sort(function(a, b){return a - b}),
             y: yVals.toString(),
@@ -99,28 +99,21 @@ d3.json("/data/samples.json").then((data) => {
             }
         };
         Plotly.newPlot("bubble", data, layout);
+
+        // Panel Data
+        var metaDataDefault = metaData[0];
+        console.log(metaDataDefault);
+
+        // Make reference to panel-body
+        var pbody = d3.select(".panel-body");
+
+        Object.entries(metaDataDefault).forEach(([key, value]) => {
+            pbody.append("p").text(`${key}:${value}`);
+            //cell.text(value);
+
+        })
         
-       /*
-        var trace1 = {
-            x: [1, 2, 3, 4],
-            y: [10, 11, 12, 13],
-            mode: 'markers',
-            marker: {
-            size: [40, 60, 80, 100]
-            }
-        };
-        
-        var data = [trace1];
-        
-        var layout = {
-            title: 'Marker Size',
-            showlegend: false,
-            height: 600,
-            width: 600
-        };
-        
-        Plotly.newPlot('bubble', data, layout);
-        */
+      
 
 
 
@@ -132,29 +125,7 @@ d3.json("/data/samples.json").then((data) => {
 
 
 
-   /* samples_data.forEach(element => {
-        var id = element.id;
-        console.log(id);
-
-        var otu_ids = element.otu_ids.slice(0, 10);
-        console.log(otu_ids);
-
-        // Grab the sample values
-        var sample_values = element.sample_values.slice(0, 10);
-        console.log(sample_values);
-
-        // Grab the otu labels
-        var otu_labels = element.otu_labels.slice(0, 10);
-        console.log(otu_labels);
-        
-
-        
-
-
-    });
-    */
-    
-
+   
     
 });
 
