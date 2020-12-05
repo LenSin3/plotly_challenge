@@ -111,22 +111,80 @@ d3.json("/data/samples.json").then((data) => {
             pbody.append("p").text(`${key}:${value}`);
             //cell.text(value);
 
-        })
-        
-      
+        });
+
+        // Gauge Chart
+
+        // Enter a speed between 0 and 180
+        var level = 120;
+
+        // Trig to calc meter point
+        var degrees = 180 - level,
+            radius = .5;
+        var radians = degrees * Math.PI / 180;
+        var x = radius * Math.cos(radians);
+        var y = radius * Math.sin(radians);
+
+        // Path: may have to change to create a better triangle
+        var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
+            pathX = String(x),
+            space = ' ',
+            pathY = String(y),
+            pathEnd = ' Z';
+        var path = mainPath.concat(pathX,space,pathY,pathEnd);
+
+        var data = [{ type: 'scatter',
+        x: [0], y:[0],
+            marker: {size: 28, color:'850000'},
+            showlegend: false,
+            name: 'washfreq',
+            text: level,
+            hoverinfo: 'text+name'},
+        { values: [81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81],
+        rotation: 90,
+        text: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9', ''],
+        textinfo: 'text',
+        textposition:'inside',	  
+        marker: {colors:['rgba(162, 222, 208, 1)', 'rgba(78, 205, 196, 1)', 'rgba(145, 180, 150, 1)', 'rgba(4, 147, 114, 1)', 'rgba(30, 130, 76, 1)', 'rgba(77, 175, 124, 1)', 'rgba(3, 166, 120, 1)', 'rgba(1, 152, 117, 1)', 'rgba(22, 160, 133, 1)', 'rgba(255, 255, 255, 0)']},
+        labels: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9', ''],
+        hoverinfo: 'label',
+        hole: .5,
+        type: 'pie',
+        showlegend: false,
+        direction: "clockwise"
+        }];
+
+        var layout = {
+        shapes:[{
+            type: 'path',
+            path: path,
+            fillcolor: '850000',
+            line: {
+                color: '850000'
+            }
+            }],
+        title: '<b> Belly Button Washing Frequency</b> <br> Scrubs per Week',
+        height: 600,
+        width: 600,
+        xaxis: {zeroline:false, showticklabels:false,
+                    showgrid: false, range: [-1, 1]},
+        yaxis: {zeroline:false, showticklabels:false,
+                    showgrid: false, range: [-1, 1]}
+        };
+
+        Plotly.newPlot('gauge', data, layout);
+
 
 
 
     }
-    init();
-
-
-
-
-
 
    
-    
+        
+       
+    init();
+
+   
 });
 
 
