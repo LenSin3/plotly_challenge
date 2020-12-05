@@ -115,8 +115,17 @@ d3.json("/data/samples.json").then((data) => {
 
         // Gauge Chart
 
-        // Enter a speed between 0 and 180
-        var level = 120;
+        
+        var washFreq = {'lev1': 20,
+                        'lev2': 40,
+                        'lev3': 60,
+                        'lev4': 80,
+                        'lev5': 100,
+                        'lev6': 120,
+                        'lev7': 140,
+                        'lev8': 160,
+                        'lev9': 180};
+        var level = washFreq.lev2;
 
         // Trig to calc meter point
         var degrees = 180 - level,
@@ -145,7 +154,7 @@ d3.json("/data/samples.json").then((data) => {
         text: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9', ''],
         textinfo: 'text',
         textposition:'inside',	  
-        marker: {colors:['rgba(162, 222, 208, 1)', 'rgba(78, 205, 196, 1)', 'rgba(145, 180, 150, 1)', 'rgba(4, 147, 114, 1)', 'rgba(30, 130, 76, 1)', 'rgba(77, 175, 124, 1)', 'rgba(3, 166, 120, 1)', 'rgba(1, 152, 117, 1)', 'rgba(22, 160, 133, 1)', 'rgba(255, 255, 255, 0)']},
+        marker: {colors:['rgba(162, 222, 208, 1)', 'rgba(78, 205, 196, 1)', 'rgba(145, 180, 150, 1)', 'rgba(77, 175, 124, 1)', 'rgba(3, 166, 120, 1)', 'rgba(1, 152, 117, 1)', 'rgba(22, 160, 133, 1)', 'rgba(4, 147, 114, 1)', 'rgba(30, 130, 76, 1)', 'rgba(255, 255, 255, 0)']},
         labels: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9', ''],
         hoverinfo: 'label',
         hole: .5,
@@ -183,6 +192,26 @@ d3.json("/data/samples.json").then((data) => {
         
        
     init();
+
+
+    function optionChanged() {
+
+        // Use D3 to select the dropdown menu
+        var dropdownMenu = d3.select("#selDataset");
+        // Assign the value of the dropdown menu option to a variable
+        var idVal = dropdownMenu.property("value");
+
+        // Make reference to option tag
+        var optionVal = d3.select("select");
+
+        idVal = Object.entries(metaData).forEach(([key, value]) => {
+            optionVal.append("option").text(value.id);
+        });
+
+        
+
+    };
+    optionChanged();
 
    
 });
