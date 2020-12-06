@@ -63,6 +63,9 @@ function createPlots(id) {
         console.log(otuIdLabel);
         console.log(samplesLabel); */
 
+        var tickvals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        var ticktext = otuIdLabel.map(val => 'OTU ' + val);
+
         // Horizontal Bar Graph
         var trace1 = {
             x: samplesVal.sort(function(a, b){return a - b}),
@@ -77,8 +80,14 @@ function createPlots(id) {
         var layout1 = {
             title: "Top 10 OTU",
             yaxis: {
-                tickmode: "linear",
+                tickmode: "array",
+                tickvals: tickvals,
+                ticktext: ticktext
             },
+
+            /* yaxis: {
+                tickmode: "linear",
+            }, */
             margin: {
                 l: 100,
                 r: 100,
