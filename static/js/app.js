@@ -110,49 +110,78 @@ function createPlots(id) {
         Plotly.newPlot("bubble", data2, layout2);
 
         // Gauge Chart
-       /* var trace3 = [
-            {
-                domain: {x: [0, 1], y: [0, 1]},
-                value: parseFloat(wfreq),
-                title: {
-                    text: "<b> Belly Button Washing Frequency</b> <br> Scrubs per Week"
-                },
-                type: "indicator",
-                mode: "gauge+number",
-                gauge: { axis: { range: [null, 9] },
-                   steps: [
-                    { range: [0, 2], color: "yellow" },
-                    { range: [2, 4], color: "cyan" },
-                    { range: [4, 6], color: "teal" },
-                    { range: [6, 8], color: "lime" },
-                    { range: [8, 9], color: "green" },
-                  ]}
-            }
-        ];
+        var metaDataWfreq = metaData.filter(val => val.id.toString() === id);
+        console.log(metaDataWfreq);
 
-        var data3 = [trace3];
+        var levelWfreq = []
 
-        var layout3 = { 
-            width: 700, 
-            height: 600, 
-            margin: { t: 20, b: 40, l:100, r:100 } 
-        };
-        Plotly.newPlot("gauge", data3, layout3); */ 
-        
-        /* var washFreq = {'lev1': 20,
-                        'lev2': 40,
-                        'lev3': 60,
-                        'lev4': 80,
-                        'lev5': 100,
-                        'lev6': 120,
-                        'lev7': 140,
-                        'lev8': 160,
-                        'lev9': 180}; */
-        // Extract wash frequency
-       /* var metaDataIdinfo = Object.entries(metaData).forEach(([key, value]) =>{
-            return value.id;
+        Object.entries(metaDataWfreq).forEach(([key, value]) => {
+            levelWfreq.push(value.wfreq);
         });
-        console.log(metaDataIdinfo);
+
+        console.log(levelWfreq);
+        
+       
+
+        // Trig to calc meter point
+        var degrees = 180 - (parseFloat(levelWfreq) * 20),
+            radius = .5;
+        var radians = degrees * Math.PI / 180;
+        var x = radius * Math.cos(radians);
+        var y = radius * Math.sin(radians);
+    
+        // Path: may have to change to create a better triangle
+        var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
+            pathX = String(x),
+            space = ' ',
+            pathY = String(y),
+            pathEnd = ' Z';
+        var path = mainPath.concat(pathX,space,pathY,pathEnd);
+    
+        var data = [{ type: 'scatter',
+        x: [0], y:[0],
+            marker: {size: 28, color:'850000'},
+            showlegend: false,
+            name: 'washfreq',
+            text: wfreq.toString(),
+            hoverinfo: 'text+name'},
+        { values: [81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81],
+        rotation: 90,
+        text: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9', ''],
+        textinfo: 'text',
+        textposition:'inside',	  
+        marker: {colors:['rgba(162, 222, 208, 1)', 'rgba(78, 205, 196, 1)', 'rgba(145, 180, 150, 1)', 'rgba(77, 175, 124, 1)', 'rgba(3, 166, 120, 1)', 'rgba(1, 152, 117, 1)', 'rgba(22, 160, 133, 1)', 'rgba(4, 147, 114, 1)', 'rgba(30, 130, 76, 1)', 'rgba(255, 255, 255, 0)']},
+        labels: ['0-1','1-2','2-3','3-4','4-5','5-6','6-7','7-8','8-9', ''],
+        hoverinfo: 'label',
+        hole: .5,
+        type: 'pie',
+        showlegend: false,
+        direction: "clockwise"
+        }];
+    
+        var layout = {
+
+            shapes:[{
+
+                type: 'path',
+                path: path,
+                fillcolor: '850000',
+                line: {
+
+                    color: '850000'
+                }
+            }],
+            title: '<b> Belly Button Washing Frequency</b> <br> Scrubs per Week',
+            height: 600,
+            width: 600,
+            xaxis: {zeroline:false, showticklabels:false,
+                        showgrid: false, range: [-1, 1]},
+            yaxis: {zeroline:false, showticklabels:false,
+                        showgrid: false, range: [-1, 1]}
+            };
+    
+        Plotly.newPlot('gauge', data, layout);
+        /*console.log(metaDataIdinfo);
 
         var level = parseFloat(metaDataIdinfo) * 20;
     
