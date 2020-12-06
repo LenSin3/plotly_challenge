@@ -152,7 +152,7 @@ function createPlots(id) {
             marker: {size: 28, color:'850000'},
             showlegend: false,
             name: 'washfreq',
-            text: wfreq.toString(),
+            text: levelWfreq.toString(),
             hoverinfo: 'text+name'},
         { values: [81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81/9, 81],
         rotation: 90,
