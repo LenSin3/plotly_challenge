@@ -1,6 +1,7 @@
 // Function to create plots
 function createPlots(id) {
-
+    
+    // Read json file
     d3.json("/data/samples.json").then((data) => {
 
         // Extract metadata
@@ -15,7 +16,7 @@ function createPlots(id) {
         var samples_data = data.samples; 
         
 
-        // Extract samples value id
+        // Extract samples data corresponding to each id
         var samplesData = samples_data.filter(val => val.id.toString() === id)[0];
         console.log(samplesData);
 
@@ -80,7 +81,7 @@ function createPlots(id) {
         var layout2 = {
             xaxis: {title: "OTU ID"},
             height: 600,
-            width: 1000
+            width: 1200
         };
         Plotly.newPlot("bubble", data2, layout2);
 
@@ -99,7 +100,7 @@ function createPlots(id) {
         
        
 
-        // Trig to calc meter point
+        // calculate needle point
         var degrees = 180 - (parseFloat(levelWfreq) * 20),
             radius = .5;
         var radians = degrees * Math.PI / 180;
