@@ -2,7 +2,7 @@
 function createPlots(id) {
     
     // Read json file
-    d3.json("/data/samples.json").then((data) => {
+    d3.json("data/samples.json").then((data) => {
 
         // Extract metadata
         var metaData = data.metadata;
