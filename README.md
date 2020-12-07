@@ -1,5 +1,7 @@
 # plotly_challenge
 
+Please click on the [link](https://lensin3.github.io/plotly_challenge/) to see the project deployed in GitHub pages
+
 This project involves building an interactive dashboard using **javaScript**, **d3** and **plotly** to visualize the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/), which catalogs the microbes that colonize human navels.
 
 ![Bacteria by filterforge.com](Images/bacteria.jpg)

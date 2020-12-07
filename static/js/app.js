@@ -2,7 +2,7 @@
 function createPlots(id) {
     
     // Read json file
-    d3.json("data/samples.json").then((data) => {
+    d3.json("./data/samples.json").then((data) => {
 
         // Extract metadata
         var metaData = data.metadata;
@@ -167,7 +167,7 @@ function createPlots(id) {
 function metaDataByID(id) {
 
     // read samples data from json data file
-    d3.json("data/samples.json").then((data) => {
+    d3.json("./data/samples.json").then((data) => {
         // Extract metadata
         var metaData = data.metadata;
         console.log(metaData);
@@ -207,7 +207,7 @@ function init() {
     var dropdown = d3.select("#selDataset");
 
     // read json data to extract names array
-    d3.json("data/samples.json").then((data) => {
+    d3.json("./data/samples.json").then((data) => {
         console.log(data);
         // Extract  names array
         var names = data.names;
