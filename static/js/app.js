@@ -32,7 +32,7 @@ function createPlots(id) {
         console.log(otuIdLabel);
         console.log(samplesLabel);
 
-        // Extract top 10 sample values and corresponding otu ID and labels
+        // Create tick marks and ticklabels
 
         var tickvals = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
         var ticktext = otuIdLabel.map(val => val);
@@ -100,7 +100,7 @@ function createPlots(id) {
         
        
 
-        // calculate needle point
+        // calculate needle point and rescale to match the radians
         var degrees = 180 - (parseFloat(levelWfreq) * 20),
             radius = .5;
         var radians = degrees * Math.PI / 180;
@@ -173,12 +173,12 @@ function metaDataByID(id) {
         console.log(metaData);
 
         // Extract metadata ID
-        // Extract wash frequency
+        
         var metaDataId = metaData.filter(val => val.id.toString() === id)[0];
         console.log(metaDataId);
 
         // Make reference to panel-body
-        // var pbody = d3.select(".panel-body");
+        
         var pbody = d3.select("#sample-metadata");
     
         // reset html after selection
@@ -206,7 +206,7 @@ function init() {
     // Capture data for dropdown selector
     var dropdown = d3.select("#selDataset");
 
-    // read json data
+    // read json data to extract names array
     d3.json("data/samples.json").then((data) => {
         console.log(data);
         // Extract  names array
