@@ -49,7 +49,7 @@ function createPlots(id) {
         var data1 = [trace1];
 
         var layout1 = {
-            title: "Top 10 OTU",
+            title: "<b>Top 10 OTU</b>",
             yaxis: {
                 tickmode: "array",
                 tickvals: tickvals,
@@ -79,6 +79,7 @@ function createPlots(id) {
         var data2 = [trace2];
 
         var layout2 = {
+            title: '<b>Microbe Levels In The Human Navel</b>',
             xaxis: {title: "OTU ID"},
             height: 600,
             width: 1200
