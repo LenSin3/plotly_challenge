@@ -81,7 +81,7 @@ function createPlots(id) {
         var layout2 = {
             title: '<b>Microbe Levels In The Human Navel</b>',
             xaxis: {title: "OTU ID"},
-            height: 600,
+            height: 800,
             width: 1200
         };
         Plotly.newPlot("bubble", data2, layout2);
